@@ -1,4 +1,5 @@
 import { cart } from "../data/cart.js ";
+import { products } from "../data/products.js";
 //products={[],[]} this will come from data package
 let productHtml = "";
 //lets loop through this array
