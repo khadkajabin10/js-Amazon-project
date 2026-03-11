@@ -1,5 +1,6 @@
 import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { formatCurrency } from "./utils/money.js";
 let cartSummaryHtml = "";
 cart.forEach((Cartitem) => {
   const productId = Cartitem.productId;
@@ -24,7 +25,7 @@ cart.forEach((Cartitem) => {
                 <div class="product-name">
                  ${matchingProduct.name}
                 </div>
-                <div class="product-price">${matchingProduct.priceCents / 100}</div>
+                <div class="product-price">$${formatCurrency(matchingProduct.priceCents)}</div>
                 <div class="product-quantity">
                   <span> Quantity: <span class="quantity-label">${cart.quantity}</span> </span>
                   <span class="update-quantity-link link-primary">
@@ -41,11 +42,12 @@ cart.forEach((Cartitem) => {
                   Choose a delivery option:
                 </div>
                 <div class="delivery-option">
+                <!--  checked do Default selected option -->
                   <input
                     type="radio"
-                    checked
+                    checked 
                     class="delivery-option-input"
-                    name="delivery-option-1"
+                    name="${matchingProduct.id}"
                   />
                   <div>
                     <div class="delivery-option-date">Tuesday, June 21</div>
@@ -56,7 +58,7 @@ cart.forEach((Cartitem) => {
                   <input
                     type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1"
+                    name="${matchingProduct.id}"
                   />
                   <div>
                     <div class="delivery-option-date">Wednesday, June 15</div>
@@ -67,7 +69,7 @@ cart.forEach((Cartitem) => {
                   <input
                     type="radio"
                     class="delivery-option-input"
-                    name="delivery-option-1"
+                    name="${matchingProduct.id}"
                   />
                   <div>
                     <div class="delivery-option-date">Monday, June 13</div>
