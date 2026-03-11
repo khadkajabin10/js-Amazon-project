@@ -86,9 +86,10 @@ cart.forEach((Cartitem) => {
     link.addEventListener("click", () => {
       const productId = link.dataset.productId;
       removeFromCart(productId);
+      //to remove from html we find container
       const container = document.querySelector(`
         .js-cart-item-container-${productId}`);
-      container.remove();
+      container.remove(); //container div removed
     });
   });
 });
