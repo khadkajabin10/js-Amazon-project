@@ -2,8 +2,13 @@ import { LoadFromStorage } from "./cart.js";
 import { products } from "./products.js";
 
 class Cart {
-  cartItems = undefined;
-  localStoragekey = undefined;
+  cartItems;
+  localStoragekey;
+  constructor(localStoragekey) {
+    this.localStoragekey = localStoragekey;
+
+    this.LoadFromStorage();
+  }
   LoadFromStorage() {
     //or only loadFromStorage()
     this.cartItems = JSON.parse(localStorage.getItem(this.localStoragekey));
@@ -72,11 +77,8 @@ class Cart {
   }
 }
 
-const cart = new Cart();
-const businessCart = new Cart();
-cart.localStoragekey = "cart-oop";
-businessCart.localStoragekey = "cart-business";
-cart.LoadFromStorage();
-businessCart.LoadFromStorage();
+const cart = new Cart("cart-oop");
+const businessCart = new Cart("cart-business");
+
 console.log(cart);
 console.log(businessCart);
