@@ -3,15 +3,15 @@ import { products } from "./products.js";
 
 class Cart {
   cartItems;
-  localStoragekey;
+  #localStoragekey;
   constructor(localStoragekey) {
-    this.localStoragekey = localStoragekey;
+    this.#localStoragekey = localStoragekey;
 
-    this.LoadFromStorage();
+    this.#LoadFromStorage();
   }
-  LoadFromStorage() {
+  #LoadFromStorage() {
     //or only loadFromStorage()
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStoragekey));
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStoragekey));
     if (!this.cartItems) {
       //this is illusion , empty array also work
       this.cartItems = [
@@ -31,7 +31,7 @@ class Cart {
   }
 
   savetoStorage() {
-    localStorage.setItem(this.localStoragekey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStoragekey, JSON.stringify(this.cartItems));
   }
 
   addToCart(productId) {
