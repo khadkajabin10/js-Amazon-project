@@ -1,4 +1,4 @@
-import { cart, removeFromCart, updateDeliveryOption } from "../../data/cart.js";
+import { cart } from "../../data/cart-instance.js";
 import { products, getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
 import dayjs from "https://unpkg.com/supersimpledev@8.5.0/dayjs/esm/index.js";
@@ -9,7 +9,7 @@ import {
 import { renderPaymentSummary } from "./paymentSummary.js";
 export function renderOrderSummary() {
   let cartSummaryHtml = "";
-  cart.forEach((Cartitem) => {
+  cart.cartItems.forEach((Cartitem) => {
     const productId = Cartitem.productId;
     let matchingProduct = getProduct(productId);
 
@@ -21,7 +21,7 @@ export function renderOrderSummary() {
     const dateString = deliveryDate.format("dddd, MMMM D");
     cartSummaryHtml += `
   <div class="cart-item-container 
-  js-cart-item-containe
+  js-cart-item-container
   js-cart-item-container-${matchingProduct.id}">
             <div class="delivery-date">Delivery date: ${dateString}</div>
 
@@ -100,10 +100,11 @@ export function renderOrderSummary() {
   document.querySelectorAll(".js-delete-link").forEach((link) => {
     link.addEventListener("click", () => {
       const productId = link.dataset.productId;
-      removeFromCart(productId);
+      cart.removeFromCart(productId);
       //to remove from html we find container
-      const container = document.querySelector(`
-        .js-cart-item-container-${productId}`);
+      const container = document.querySelector(
+        `.js-cart-item-container-${productId}`,
+      );
       container.remove(); //container div removed
       renderPaymentSummary();
     });
@@ -111,7 +112,7 @@ export function renderOrderSummary() {
   document.querySelectorAll(".js-delivery-option").forEach((element) => {
     element.addEventListener("click", () => {
       const { productId, deliveryOptionId } = element.dataset;
-      updateDeliveryOption(productId, deliveryOptionId);
+      cart.updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary();
       renderPaymentSummary();
     });

@@ -1,7 +1,4 @@
-import { LoadFromStorage } from "./cart.js";
-import { products } from "./products.js";
-
-class Cart {
+export class Cart {
   cartItems;
   #localStoragekey;
   constructor(localStoragekey) {
@@ -76,9 +73,3 @@ class Cart {
     this.savetoStorage(); //bez we update the cart so
   }
 }
-
-const cart = new Cart("cart-oop");
-const businessCart = new Cart("cart-business");
-
-console.log(cart);
-console.log(businessCart);

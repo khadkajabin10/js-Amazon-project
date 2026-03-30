@@ -1,4 +1,5 @@
-import { cart, addToCart } from "../data/cart.js ";
+import { Cart } from "../data/cart-class.js";
+const cart = new Cart("cart-oop");
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 //products={[],[]} this will come from data package
@@ -63,7 +64,7 @@ document.querySelector(".js-products-grid").innerHTML = productHtml;
 
 function updateCartQuantity() {
   let cartQuantity = 0;
-  cart.forEach((Cartitem) => {
+  cart.cartItems.forEach((Cartitem) => {
     cartQuantity += Cartitem.quantity;
   });
   document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
@@ -72,7 +73,7 @@ function updateCartQuantity() {
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     const productId = button.dataset.productId;
-    addToCart(productId);
+    cart.addToCart(productId);
     updateCartQuantity();
   });
 });
