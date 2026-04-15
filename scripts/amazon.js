@@ -1,8 +1,13 @@
 import { Cart } from "../data/cart-class.js";
 const cart = new Cart("cart-oop");
-import { products, loadProducts } from "../data/products.js";
+import { products, loadProducts, loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
-loadProducts(renderProductsGrid); //if not done this products loop runs in empty array bec
+//this is by promise
+loadProductsFetch().then(() => {
+  renderProductsGrid();
+});
+//this is by callback
+//loadProducts(renderProductsGrid); //if not done this products loop runs in empty array bec
 function renderProductsGrid() {
   //products={[],[]} this will come from data package
   // loadProducts(); starts request (async)
