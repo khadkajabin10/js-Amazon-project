@@ -60,6 +60,30 @@ logThis();
 logThis.call("hello"); //this= hello*/
 
 export let products = [];
+
+export function loadProductsFetch() {
+  const promise = fetch("https://supersimplebackend.dev/products")
+    .then((response) => {
+      return response.json(); //this give data attach in the response,it is asynchronous and it return promise so we need to wait or return promise
+    })
+    .then((productdata) => {
+      products = productdata.map((productDetails) => {
+        if (productDetails.type === "clothing") {
+          return new Clothing(productDetails);
+        } else {
+          return new Product(productDetails);
+        }
+      });
+
+      console.log("load products");
+    });
+  return promise;
+}/*
+//promis is return here
+loadProductsFetch().then(() => {
+  console.log("next steps");
+});*/
+
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
 
