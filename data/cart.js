@@ -9,7 +9,7 @@ export function LoadFromStorage() {
     cart = [
       {
         productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-        quantity: 2, 
+        quantity: 2,
         deliveryOptionId: "1",
       },
       {
@@ -63,4 +63,17 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
   });
   matchingItem.deliveryOptionId = deliveryOptionId;
   savetoStorage(); //bez we update the cart so
+}
+
+export function loadCart(fun) {
+  const xhr = new XMLHttpRequest();
+
+  xhr.addEventListener("load", () => {
+    console.log(xhr.response);
+
+    fun();
+  });
+
+  xhr.open("GET", "https://supersimplebackend.dev/cart");
+  xhr.send();
 }
