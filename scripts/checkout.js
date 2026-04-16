@@ -45,9 +45,29 @@ loadProducts(() => {
   });
 }); //code inside code multiple callbacks cause a lot of nesting cause hard to work
 */
+/*
+async function loadPage() {
+  //async return promise so it make return new promise(()=>{}) like this
 
+  await loadProductsFetch();
+  await new Promise((resolve) => {
+    loadCart(() => {
+      resolve();
+    });
+  });
+  renderOrderSummary();
+  renderPaymentSummary(); //we already wait so we can write here , no need to write in then , if it was not for async we had to write it in then .
+
+  return "value2"; //this is equavalaint to resolve('value2) variable
+}
+loadPage();*/
+
+/*.then((value) => {
+  console.log("next steps");
+  console.log(value);
+});*/
 //using promise
-
+/*
 Promise.all([
   loadProductsFetch(),
 
@@ -60,7 +80,26 @@ Promise.all([
   console.log(values);
   renderOrderSummary();
   renderPaymentSummary();
-});
+});*/
+
+//using async and await with promiseall
+
+async function loadpageusingPromiseAll() {
+  const value = await Promise.all([
+    loadProductsFetch(),
+
+    new Promise((resolve) => {
+      loadCart(() => {
+        console.log("callback called");
+        resolve("using promise all");
+      });
+    }),
+  ]);
+  console.log(value);
+  renderOrderSummary();
+  renderPaymentSummary();
+}
+loadpageusingPromiseAll();
 
 /*
 new Promise((resolve) => {
