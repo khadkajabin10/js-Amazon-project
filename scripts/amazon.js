@@ -1,6 +1,6 @@
 import { Cart } from "../data/cart-class.js";
 const cart = new Cart("cart-oop");
-import { products,loadProductsFetch } from "../data/products.js";
+import { products, loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 /*this is by promise simple 
 loadProductsFetch().then(() => {

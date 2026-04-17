@@ -1,8 +1,8 @@
-
 import { cart } from "../../data/cart-instance.js";
 import { getProduct } from "../../data/products.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { formatCurrency } from "../utils/money.js";
+import { addOrder } from "../../data/orders.js";
 export function renderPaymentSummary() {
   let productPriceCents = 0;
   let shippingPriceCents = 0;
@@ -14,7 +14,7 @@ export function renderPaymentSummary() {
     shippingPriceCents += deliveryOption.priceCents;
   });
   const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
-  console.log(shippingPriceCents);
+  // console.log(shippingPriceCents);
   const taxCents = totalBeforeTaxCents * 0.1;
   const totalCents = totalBeforeTaxCents + taxCents;
   const paymentSummaryHtml = `
@@ -54,9 +54,30 @@ export function renderPaymentSummary() {
             </div>
           </div>
 
-          <button class="place-order-button button-primary">
+          <button class="place-order-button button-primary js-place-order">
             Place your order
           </button>
   `;
   document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHtml;
+
+  document
+    .querySelector(".js-place-order")
+    .addEventListener("click", async () => {
+      try {
+        const response = await fetch("https://supersimplebackend.dev/orders", {
+          method: "POST",
+          headers: {
+            "Content-type": "application/json", //we are sending content in json type
+          },
+          body: JSON.stringify({
+            cart: cart,
+          }),
+        });
+        const order = await response.json(); //this gives a  data attach to response from backend and it is promise so use await
+        addOrder(order);
+      } catch (error) {
+        console.log("unexpected error.Try again later");
+      }
+      window.location.href = "orders.html";
+    });
 }
