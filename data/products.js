@@ -88,6 +88,7 @@ loadProductsFetch().then(() => {
   console.log("next steps");
 });
 */
+
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
 
@@ -115,10 +116,10 @@ export function loadProducts(fun) {
 }
 
 //here is bug , we need loadproducts() to run because we are exporting products=[ ] but in case of fetch , products = productdata.map this line will reassign products so and it is not called in product.js so products i.e exporting other is empty array  but both this and above also work , note consider import is not commented while using other file
-/*
+/* 
 export let products = [];
 
-export async function loadProductsFetch()  {
+export async function loadProductsFetch() {
   const response = await fetch("https://supersimplebackend.dev/products");
   const productdata = await response.json();
 
@@ -134,7 +135,7 @@ export async function loadProductsFetch()  {
   });
 
   console.log("load products");
-}/*
+} 
 
 
 /*
