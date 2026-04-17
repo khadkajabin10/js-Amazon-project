@@ -74,6 +74,7 @@ export function renderPaymentSummary() {
           }),
         });
         const order = await response.json(); //this gives a  data attach to response from backend and it is promise so use await
+        // console.log(order);
         addOrder(order);
       } catch (error) {
         console.log("unexpected error.Try again later");
