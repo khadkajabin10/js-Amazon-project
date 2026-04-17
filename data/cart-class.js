@@ -74,6 +74,20 @@ export class Cart {
 
     this.savetoStorage();
   }
+  updateQuantity(productId, newQuantity) {
+    let matchingItem;
+
+    this.cartItems.forEach((cartItem) => {
+      if (productId === cartItem.productId) {
+        matchingItem = cartItem;
+      }
+    });
+
+    if (matchingItem) {
+      matchingItem.quantity = newQuantity;
+      this.savetoStorage();
+    }
+  }
 
   removeFromCart(productId) {
     const newCart = [];

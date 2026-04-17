@@ -1,6 +1,18 @@
 import { cart } from "../data/cart-instance.js";
 import { products, loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
+export function updateCartQuantity() {
+  let cartQuantity = 0;
+  cart.cartItems.forEach((Cartitem) => {
+    cartQuantity += Cartitem.quantity;
+  });
+
+  const el = document.querySelector(".js-cart-quantity");
+  if (el) {
+    el.innerHTML = cartQuantity;
+  }
+}
+
 /*this is by promise simple 
 loadProductsFetch().then(() => {
   renderProductsGrid();
@@ -80,19 +92,11 @@ function renderProductsGrid() {
   });
   document.querySelector(".js-products-grid").innerHTML = productHtml;
 
-  function updateCartQuantity() {
-    let cartQuantity = 0;
-    cart.cartItems.forEach((Cartitem) => {
-      cartQuantity += Cartitem.quantity;
-    });
-    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
-  }
-
   document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     button.addEventListener("click", () => {
       const productId = button.dataset.productId;
-      //cart.addToCart(productId); we call it in below see
-      updateCartQuantity();
+      //cart.addToCart(productId); we call it in
+
       const productContainer = button.closest(".product-container"); //this find the spacific container we click since button now
       // Get the selected quantity from the <select>
       const quantitySelect = productContainer.querySelector(

@@ -209,3 +209,25 @@
   margin-top: 11px;
   margin-bottom: 15px;
 }
+.quantity-input {
+  width: 30px;
+  display: none;
+}
+.save-quantity-link {
+  display: none;
+}
+
+.is-editing-quantity .quantity-input {
+  display: initial; /* show the input box */
+}
+
+.is-editing-quantity .save-quantity-link {
+  display: initial; /* show the Save link/button */
+}
+.is-editing-quantity .quantity-label {
+  display: none; /* hide the plain text label */
+}
+
+.is-editing-quantity .update-quantity-link {
+  display: none; /* hide the Update link */
+}
