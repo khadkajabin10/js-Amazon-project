@@ -76,18 +76,23 @@ export function loadProductsFetch() {
       });
 
       console.log("load products");
+    })
+    .catch(() => {
+      console.log("unexpected error. please try again later.");
     });
   return promise;
-}/*
+}
+/*
 //promis is return here
 loadProductsFetch().then(() => {
   console.log("next steps");
-});*/
+});
 
 export function loadProducts(fun) {
   const xhr = new XMLHttpRequest();
 
   xhr.addEventListener("load", () => {
+    //this is callbacks we add eventlistener
     products = JSON.parse(xhr.response).map((productDetails) => {
       if (productDetails.type === "clothing") {
         return new Clothing(productDetails);
@@ -99,10 +104,38 @@ export function loadProducts(fun) {
     console.log("load products");
     fun();
   });
+  xhr.addEventListener("error", (error) => {
+    //this is callbacks we add eventlistener
+    console.log("unexpected error. please try again later.");
+    console.log(error);
+  });
 
   xhr.open("GET", "https://supersimplebackend.dev/products");
   xhr.send();
 }
+loadProducts();*/
+//here is bug , we need loadproducts() to run because we are exporting products=[ ] but in case of fetch , products = productdata.map this line will reassign products so and it is not called in product.js so products i.e exporting other is empty array  but both this and above also work , note consider import is not commented while using other file
+/*
+export let products = [];
+
+export async function loadProductsFetch()  {
+  const response = await fetch("https://supersimplebackend.dev/products");
+  const productdata = await response.json();
+
+  // clear the old array but keep the same reference
+  products.length = 0;
+
+  productdata.forEach((productDetails) => {
+    if (productDetails.type === "clothing") {
+      products.push(new Clothing(productDetails));
+    } else {
+      products.push(new Product(productDetails));
+    }
+  });
+
+  console.log("load products");
+}/*
+
 
 /*
 export const products = [

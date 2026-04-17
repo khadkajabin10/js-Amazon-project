@@ -1,11 +1,19 @@
 import { Cart } from "../data/cart-class.js";
 const cart = new Cart("cart-oop");
-import { products, loadProducts, loadProductsFetch } from "../data/products.js";
+import { products,loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
-//this is by promise
+/*this is by promise simple 
 loadProductsFetch().then(() => {
   renderProductsGrid();
-});
+});*/
+//this is by  async and awit with promise simple
+
+async function loadAmazon() {
+  await loadProductsFetch();
+  renderProductsGrid();
+}
+loadAmazon();
+
 //this is by callback
 //loadProducts(renderProductsGrid); //if not done this products loop runs in empty array bec
 function renderProductsGrid() {

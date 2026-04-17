@@ -77,3 +77,13 @@ export function loadCart(fun) {
   xhr.open("GET", "https://supersimplebackend.dev/cart");
   xhr.send();
 }
+export function loadCartFetch() {
+  const promise = fetch("https://supersimplebackend.dev/cart")
+    .then((response) => {
+      return response.text();
+    })
+    .then((text) => {
+      console.log(text + " fetch style");
+    });
+  return promise;
+}

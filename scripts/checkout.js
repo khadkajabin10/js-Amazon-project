@@ -1,8 +1,8 @@
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import "../data/cart-class.js";
-import { loadProducts, loadProductsFetch } from "../data/products.js";
-import { loadCart } from "../data/cart.js";
+import { loadProductsFetch } from "../data/products.js"; //note commented function should not be imported like loadProduct
+import { loadCart, loadCartFetch } from "../data/cart.js";
 /*
 new Promise((resolve) => {
   console.log("start ");
@@ -45,22 +45,31 @@ loadProducts(() => {
   });
 }); //code inside code multiple callbacks cause a lot of nesting cause hard to work
 */
-/*
+
 async function loadPage() {
   //async return promise so it make return new promise(()=>{}) like this
-
-  await loadProductsFetch();
-  await new Promise((resolve) => {
+  try {
+    await loadProductsFetch();
+    //throw "error";//mannually throwing error
+    await loadCartFetch();
+  } catch (error) {
+    console.log("unexpected error check it");
+  }
+  //await loadProductsFetch();
+  //this is callback style or xmlhttprequest style
+  /* await new Promise((resolve) => {
     loadCart(() => {
       resolve();
     });
-  });
+  });*/
+  //this is fatch style
+  // await loadCartFetch();
   renderOrderSummary();
   renderPaymentSummary(); //we already wait so we can write here , no need to write in then , if it was not for async we had to write it in then .
 
   return "value2"; //this is equavalaint to resolve('value2) variable
 }
-loadPage();*/
+loadPage();
 
 /*.then((value) => {
   console.log("next steps");
@@ -83,7 +92,7 @@ Promise.all([
 });*/
 
 //using async and await with promiseall
-
+/*
 async function loadpageusingPromiseAll() {
   const value = await Promise.all([
     loadProductsFetch(),
@@ -99,7 +108,7 @@ async function loadpageusingPromiseAll() {
   renderOrderSummary();
   renderPaymentSummary();
 }
-loadpageusingPromiseAll();
+loadpageusingPromiseAll();*/
 
 /*
 new Promise((resolve) => {
