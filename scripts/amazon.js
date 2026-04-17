@@ -1,5 +1,4 @@
-import { Cart } from "../data/cart-class.js";
-const cart = new Cart("cart-oop");
+import { cart } from "../data/cart-instance.js";
 import { products, loadProductsFetch } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 /*this is by promise simple 
@@ -92,8 +91,30 @@ function renderProductsGrid() {
   document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     button.addEventListener("click", () => {
       const productId = button.dataset.productId;
-      cart.addToCart(productId);
+      //cart.addToCart(productId); we call it in below see
       updateCartQuantity();
+      const productContainer = button.closest(".product-container"); //this find the spacific container we click since button now
+      // Get the selected quantity from the <select>
+      const quantitySelect = productContainer.querySelector(
+        ".product-quantity-container select",
+      ); //this .select means find the select element
+      const selectedQuantity = parseInt(quantitySelect.value, 10);
+
+      // Add to cart with the selected quantity
+      cart.addToCart(productId, selectedQuantity);
+
+      // Update cart quantity in header
+      updateCartQuantity();
+
+      const addedMessage = productContainer.querySelector(".added-to-cart"); //that container ko  added to cart
+
+      // Step 1: Add the "visible" class → opacity goes from 0 → 1
+      addedMessage.classList.add("visible");
+
+      // Step 2: After 2 seconds, remove the "visible" class → opacity goes back to 0
+      setTimeout(() => {
+        addedMessage.classList.remove("visible");
+      }, 2000);
     });
   });
 }
